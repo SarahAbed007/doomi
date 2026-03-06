@@ -263,7 +263,16 @@ export default function Home() {
               </button>
             </div>
           </div>
-
+          <p style={{ textAlign: "center", fontSize: "11px", color: "#334155", marginTop: "12px" }}>
+  Global average based on{" "}
+  <a 
+    href="https://datareportal.com/reports/digital-2024-global-overview-report" 
+    target="_blank"
+    style={{ color: "#475569", textDecoration: "underline" }}
+  >
+    DataReportal 2024
+  </a>
+</p>
           <button
             onClick={() => { setResult(null); setImage(null); setImageFile(null) }}
             style={{ marginTop: "12px", width: "100%", color: "#475569", background: "none", border: "none", cursor: "pointer", fontSize: "14px" }}
