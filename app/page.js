@@ -23,6 +23,11 @@ export default function Home() {
     formData.append("image", imageFile)
     const res = await fetch("/api/analyze", { method: "POST", body: formData })
     const data = await res.json()
+    if (data.error === "not_a_screenshot") {
+      alert("That doesn't look like a screen time screenshot! Please upload your iPhone or Android screen time report.")
+      setLoading(false)
+      return
+    }
     setResult(data)
     setLoading(false)
   }
