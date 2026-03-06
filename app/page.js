@@ -178,9 +178,14 @@ export default function Home() {
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ color: "#64748b", fontSize: "14px" }}>Total screen time</span>
-              <span style={{ color: "#f8fafc", fontWeight: "700" }}>{result.totalTime}</span>
-            </div>
+  <span style={{ color: "#64748b", fontSize: "14px" }}>Worst offender</span>
+  <span style={{ color: "#f8fafc", fontWeight: "700" }}>{result.worstApp} · {result.worstAppTime}</span>
+</div>
+
+<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+  <span style={{ color: "#64748b", fontSize: "14px" }}>vs. global average</span>
+  <span style={{ color: "#f87171", fontWeight: "700" }}>avg 4h · you're at {result.vsAverage}</span>
+</div>
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ color: "#64748b", fontSize: "14px" }}>Worst offender</span>

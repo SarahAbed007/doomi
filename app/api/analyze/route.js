@@ -31,18 +31,20 @@ export async function POST(request) {
               type: "text",
               text: `Look at this image. First check if it is a screen time or digital wellbeing screenshot from a phone.
 
-              If it is NOT a screen time screenshot, respond with ONLY this JSON:
-              {"error": "not_a_screenshot"}
-              
-              If it IS a screen time screenshot, respond with ONLY this JSON, no other text, no markdown, no backticks:
-              {
-                "totalTime": "X hours Y minutes",
-                "worstApp": "app name",
-                "worstAppTime": "X hours Y minutes",
-                "roast": "funny savage roast in 2-3 sentences",
-                "advice": "one specific actionable tip",
-                "verdict": "DOOMING HARD or GETTING THERE or ACTUALLY OKAY"
-              }`,
+If it is NOT a screen time screenshot, respond with ONLY this JSON:
+{"error": "not_a_screenshot"}
+
+If it IS a screen time screenshot, respond with ONLY this JSON, no other text, no markdown, no backticks:
+{
+  "totalTime": "X hours Y minutes",
+  "totalMinutes": 000,
+  "worstApp": "app name",
+  "worstAppTime": "X hours Y minutes",
+  "roast": "funny savage roast in 2-3 sentences. Include that the global average is 4 hours and make it personal based on their actual numbers",
+  "advice": "one specific actionable tip",
+  "verdict": "DOOMING HARD or GETTING THERE or ACTUALLY OKAY",
+  "vsAverage": "X times the average" 
+}`,
             },
           ],
         },
