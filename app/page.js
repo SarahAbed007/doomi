@@ -30,7 +30,11 @@ export default function Home() {
   async function submitEmail() {
     if (!email) return
     setEmailSent(true)
-    console.log("Email captured:", email)
+    await fetch("https://api.sheety.co/144575ee7e1cfc9fdf9f5fc8a210181f/doomi/sheet1", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sheet1: { email: email } })
+    })
   }
 
   const verdictConfig = {
