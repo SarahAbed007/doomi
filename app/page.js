@@ -1,65 +1,78 @@
-import Image from "next/image";
+"use client"
+import { useState } from "react"
 
 export default function Home() {
+  const [image, setImage] = useState(null)
+  const [imageFile, setImageFile] = useState(null)
+  const [result, setResult] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  function handleFile(file) {
+    if (!file) return
+    setImageFile(file)
+    const url = URL.createObjectURL(file)
+    setImage(url)
+  }
+
+  async function analyze() {
+    if (!imageFile) return
+    setLoading(true)
+    const formData = new FormData()
+    formData.append("image", imageFile)
+    const res = await fetch("/api/analyze", { method: "POST", body: formData })
+    const data = await res.json()
+    setResult(data)
+    setLoading(false)
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 py-12">
+      <h1 className="text-4xl font-bold mb-2">Doomi 💀</h1>
+      <p className="text-gray-400 mb-8">Find out how bad your scrolling really is.</p>
+
+      <label className="border-2 border-dashed border-gray-600 rounded-2xl p-12 text-center cursor-pointer hover:border-white transition-all">
+        <input type="file" accept="image/*" className="hidden" onChange={(e) => handleFile(e.target.files[0])} />
+        <p className="text-2xl mb-2">📱</p>
+        <p className="text-gray-300">Drop your screen time screenshot here</p>
+        <p className="text-gray-500 text-sm mt-1">or click to upload</p>
+      </label>
+
+      {image && (
+        <div className="mt-6 text-center">
+          <img src={image} alt="Your screenshot" className="max-w-xs rounded-xl mb-4" />
+          <button
+            onClick={analyze}
+            disabled={loading}
+            className="bg-white text-black font-bold px-8 py-3 rounded-full hover:bg-gray-200 transition-all disabled:opacity-50"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            {loading ? "Analysing... 🔍" : "Roast me 🔥"}
+          </button>
         </div>
-      </main>
-    </div>
-  );
+      )}
+
+      {result && (
+        <div className="mt-8 max-w-md w-full bg-gray-900 rounded-2xl p-6 space-y-4">
+          <div className="text-center">
+            <span className="text-2xl font-bold">{result.verdict}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-400">Total screen time</span>
+            <span className="font-bold">{result.totalTime}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-400">Worst app</span>
+            <span className="font-bold">{result.worstApp} — {result.worstAppTime}</span>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-4">
+            <p className="text-sm text-gray-400 mb-1">Doomi says:</p>
+            <p className="text-white">{result.roast}</p>
+          </div>
+          <div className="bg-gray-800 rounded-xl p-4">
+            <p className="text-sm text-gray-400 mb-1">One thing to try:</p>
+            <p className="text-white">{result.advice}</p>
+          </div>
+        </div>
+      )}
+    </main>
+  )
 }
