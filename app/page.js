@@ -282,7 +282,7 @@ export default function Home() {
             <FadeIn>
               <div style={{
                 borderRadius: "28px", overflow: "hidden",
-                border: "2px solid rgba(255,255,255,0.3)",
+                border: "3px solid #1e3a5f",
                 boxShadow: "0 32px 80px rgba(0,0,0,0.3)"
               }}>
                 {/* VERDICT HEADER */}
@@ -308,7 +308,7 @@ export default function Home() {
 
                 {/* STATS */}
                 <div style={{
-                  background: "linear-gradient(180deg, #1e1b4b 0%, #172554 100%)",
+                  background: "linear-gradient(180deg, #f0fdf4 0%, #e0f2fe 50%, #faf5ff 100%)",
                   padding: "24px 28px",
                   display: "flex", flexDirection: "column", gap: "14px"
                 }}>
@@ -320,37 +320,37 @@ export default function Home() {
                     <div key={i} style={{
                       display: "flex", justifyContent: "space-between", alignItems: "center",
                       paddingBottom: i < 2 ? "14px" : 0,
-                      borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.08)" : "none"
+                      borderBottom: i < 2 ? "1px solid rgba(0,0,0,0.06)" : "none"
                     }}>
-                      <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>{row.label}</span>
-                      <span style={{ color: row.highlight ? "#f87171" : "white", fontWeight: "700", fontSize: "14px" }}>{row.value}</span>
+                      <span style={{ color: "#64748b", fontSize: "14px" }}>{row.label}</span>
+<span style={{ color: row.highlight ? "#ef4444" : "#0f172a", fontWeight: "700", fontSize: "14px" }}>{row.value}</span>
                     </div>
                   ))}
 
                   <div style={{
-                    background: "rgba(255,255,255,0.06)",
+                    background: "rgba(255,255,255,0.7)",
                     borderRadius: "16px", padding: "18px",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(0,0,0,0.06)",
                     marginTop: "4px"
                   }}>
                     <p style={{ color: "#6EE7B7", fontSize: "10px", fontWeight: "800", letterSpacing: "2.5px", textTransform: "uppercase", margin: "0 0 10px 0" }}>Doomi says</p>
-                    <p style={{ color: "rgba(255,255,255,0.9)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.roast}</p>
+                    <p style={{ color: "#0f172a", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.roast}</p>
                   </div>
 
                   <div style={{
-                    background: "rgba(255,255,255,0.06)",
+                    background: "rgba(255,255,255,0.7)",
                     borderRadius: "16px", padding: "18px",
-                    border: "1px solid rgba(255,255,255,0.08)"
+                    border: "1px solid rgba(0,0,0,0.06)"
                   }}>
                     <p style={{ color: "#FACC15", fontSize: "10px", fontWeight: "800", letterSpacing: "2.5px", textTransform: "uppercase", margin: "0 0 10px 0" }}>One thing to try</p>
-                    <p style={{ color: "rgba(255,255,255,0.9)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.advice}</p>
+                    <p style={{ color: "#0f172a", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.advice}</p>
                   </div>
 
                   {/* EMAIL CAPTURE */}
                   <div style={{
-                    background: "rgba(255,255,255,0.06)",
+                    background: "rgba(255,255,255,0.7)",
                     borderRadius: "16px", padding: "20px",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(0,0,0,0.06)",
                     textAlign: "center"
                   }}>
                     <p style={{ color: "white", fontWeight: "800", fontSize: "15px", margin: "0 0 4px 0" }}>Want to stop dooming for real?</p>
@@ -369,8 +369,8 @@ export default function Home() {
                           type="email" placeholder="your@email.com" value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           style={{
-                            flex: 1, background: "rgba(255,255,255,0.1)",
-                            border: "1px solid rgba(255,255,255,0.2)",
+                            flex: 1, background: "rgba(255,255,255,0.7)",
+                            border: "1px solid rgba(0,0,0,0.06)",
                             borderRadius: "100px", padding: "12px 16px",
                             color: "white", fontSize: "14px", outline: "none"
                           }}
