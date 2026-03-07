@@ -74,7 +74,8 @@ export default function Home() {
   const verdict = verdictConfig[result?.verdict] || { color: "#ef4444", bg: "#fef2f2", emoji: "💀" }
 
   return (
-    <main style={{ fontFamily: "system-ui, sans-serif", background: "#f8fafc", minHeight: "100vh" }}>
+    <main style={{ fontFamily: "system-ui, sans-serif", background: "linear-gradient(160deg, #ecfdf5 0%, #fef9c3 40%, #fff7ed 70%, #eff6ff 100%)",
+    minHeight: "100vh" }}>
 
       {/* NAV */}
       <nav style={{
@@ -169,10 +170,10 @@ export default function Home() {
       <section id="analyzer" style={{ padding: "80px 24px" }}>
         <div style={{ maxWidth: "480px", margin: "0 auto" }}>
 
-          {!result && (
-            <>
-              <FadeIn>
-                <h2 style={{ textAlign: "center", fontSize: "28px", fontWeight: "900", letterSpacing: "-1px", color: "#0f172a", marginBottom: "8px" }}>
+        {!result && !loading && (
+  <>
+    <FadeIn>
+      <h2 style={{ textAlign: "center", fontSize: "28px", fontWeight: "900", letterSpacing: "-1px", color: "#0f172a", marginBottom: "8px" }}>
                   Try it now
                 </h2>
                 <p style={{ textAlign: "center", color: "#64748b", marginBottom: "32px" }}>
@@ -260,24 +261,35 @@ export default function Home() {
                   <div style={{ background: "#f0fdf4", borderRadius: "16px", padding: "20px", textAlign: "center" }}>
                     <p style={{ color: "#0f172a", fontWeight: "700", fontSize: "15px", margin: "0 0 4px 0" }}>Want to stop dooming for real? 👾</p>
                     <p style={{ color: "#64748b", fontSize: "13px", margin: "0 0 16px 0" }}>Get early access to the full app.</p>
-                    <div style={{ display: "flex", gap: "8px" }}>
-                      <input
-                        type="email" placeholder="your@email.com" value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        style={{
-                          flex: 1, background: "white", border: "1px solid #e2e8f0",
-                          borderRadius: "100px", padding: "12px 16px", color: "#0f172a",
-                          fontSize: "14px", outline: "none"
-                        }}
-                      />
-                      <button onClick={submitEmail} style={{
-                        background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
-                        color: "#0f172a", fontWeight: "800", fontSize: "14px",
-                        padding: "12px 20px", borderRadius: "100px", border: "none", cursor: "pointer"
-                      }}>
-                        {emailSent ? "✓ Done!" : "Notify me"}
-                      </button>
-                    </div>
+                    {emailSent ? (
+  <button style={{
+    width: "100%",
+    background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
+    color: "#0f172a", fontWeight: "800", fontSize: "16px",
+    padding: "16px", borderRadius: "100px", border: "none", cursor: "default"
+  }}>
+    ✓ You're on the list!
+  </button>
+) : (
+  <div style={{ display: "flex", gap: "8px" }}>
+    <input
+      type="email" placeholder="your@email.com" value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      style={{
+        flex: 1, background: "white", border: "1px solid #e2e8f0",
+        borderRadius: "100px", padding: "12px 16px", color: "#0f172a",
+        fontSize: "14px", outline: "none"
+      }}
+    />
+    <button onClick={submitEmail} style={{
+      background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
+      color: "#0f172a", fontWeight: "800", fontSize: "14px",
+      padding: "12px 20px", borderRadius: "100px", border: "none", cursor: "pointer"
+    }}>
+      Notify me
+    </button>
+  </div>
+)}
                   </div>
                 </div>
               </div>
