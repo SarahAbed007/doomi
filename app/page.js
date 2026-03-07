@@ -5,7 +5,6 @@ import Image from "next/image"
 function FadeIn({ children, delay = 0 }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true) },
@@ -14,16 +13,39 @@ function FadeIn({ children, delay = 0 }) {
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
-
   return (
     <div ref={ref} style={{
       opacity: visible ? 1 : 0,
-      transform: visible ? "translateY(0)" : "translateY(32px)",
-      transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`
+      transform: visible ? "translateY(0)" : "translateY(28px)",
+      transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`
     }}>
       {children}
     </div>
   )
+}
+
+const VERDICTS = {
+  "DOOMING HARD": {
+    label: "Doomscroll Level: Extreme",
+    sublabel: "You're deep in it.",
+    headerGradient: "linear-gradient(135deg, #dc2626 0%, #ea580c 50%, #facc15 100%)",
+    textColor: "white",
+    badgeColor: "#dc2626"
+  },
+  "GETTING THERE": {
+    label: "Doomscroll Level: Moderate",
+    sublabel: "Room to improve.",
+    headerGradient: "linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #facc15 100%)",
+    textColor: "white",
+    badgeColor: "#d97706"
+  },
+  "ACTUALLY OKAY": {
+    label: "Doomscroll Level: Low",
+    sublabel: "Not bad at all.",
+    headerGradient: "linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #67e8f9 100%)",
+    textColor: "white",
+    badgeColor: "#0891b2"
+  },
 }
 
 export default function Home() {
@@ -66,99 +88,119 @@ export default function Home() {
     })
   }
 
-  const verdictConfig = {
-    "DOOMING HARD": { color: "#ef4444", bg: "#fef2f2", emoji: "💀" },
-    "GETTING THERE": { color: "#d97706", bg: "#fffbeb", emoji: "😬" },
-    "ACTUALLY OKAY": { color: "#059669", bg: "#ecfdf5", emoji: "✨" },
-  }
-  const verdict = verdictConfig[result?.verdict] || { color: "#ef4444", bg: "#fef2f2", emoji: "💀" }
+  const verdictData = VERDICTS[result?.verdict] || VERDICTS["DOOMING HARD"]
 
   return (
-    <main style={{ fontFamily: "system-ui, sans-serif", background: "linear-gradient(160deg, #ecfdf5 0%, #fef9c3 40%, #fff7ed 70%, #eff6ff 100%)",
-    minHeight: "100vh" }}>
+    <main style={{
+      fontFamily: "inherit",
+      minHeight: "100vh",
+      background: "linear-gradient(160deg, #06d6a0 0%, #7b2d8b 30%, #f4845f 65%, #facc15 100%)",
+    }}>
 
       {/* NAV */}
       <nav style={{
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "16px 32px", background: "white",
-        borderBottom: "1px solid #e2e8f0", position: "sticky", top: 0, zIndex: 100
+        padding: "16px 32px",
+        background: "rgba(255,255,255,0.15)",
+        backdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255,255,255,0.2)",
+        position: "sticky", top: 0, zIndex: 100
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Image src="/pet.svg" alt="Doomi" width={36} height={36} />
-          <span style={{ fontWeight: "900", fontSize: "22px", color: "#0f172a", letterSpacing: "-1px" }}>doomi</span>
+          <span style={{ fontWeight: "900", fontSize: "22px", color: "white", letterSpacing: "-1px" }}>doomi</span>
         </div>
         <a href="#analyzer" style={{
-          background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
-          color: "#0f172a", fontWeight: "700", fontSize: "14px",
-          padding: "10px 20px", borderRadius: "100px", textDecoration: "none"
-        }}>Try it free →</a>
+          background: "white",
+          color: "#0f172a", fontWeight: "800", fontSize: "14px",
+          padding: "10px 22px", borderRadius: "100px", textDecoration: "none",
+          boxShadow: "0 4px 16px rgba(0,0,0,0.15)"
+        }}>Try it free</a>
       </nav>
 
       {/* HERO */}
-      <section style={{ textAlign: "center", padding: "80px 24px 60px", maxWidth: "700px", margin: "0 auto" }}>
+      <section style={{ textAlign: "center", padding: "100px 24px 80px", maxWidth: "720px", margin: "0 auto" }}>
         <FadeIn>
           <div style={{
-            display: "inline-block", background: "#f0fdf4", border: "1px solid #bbf7d0",
-            borderRadius: "100px", padding: "6px 16px", fontSize: "13px",
-            color: "#16a34a", fontWeight: "600", marginBottom: "24px"
+            display: "inline-block",
+            background: "rgba(255,255,255,0.2)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.4)",
+            borderRadius: "100px", padding: "8px 20px", fontSize: "13px",
+            color: "white", fontWeight: "700", marginBottom: "28px",
+            letterSpacing: "0.5px"
           }}>
-            Free screen time analyzer ✨
+            Free AI Screen Time Analyzer
           </div>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px", marginBottom: "20px" }}>
-            <Image src="/pet.svg" alt="Doomi pet" width={80} height={80} style={{ filter: "drop-shadow(0 4px 12px rgba(20,184,166,0.3))" }} />
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "20px", marginBottom: "24px" }}>
+            <Image src="/pet.svg" alt="Doomi pet" width={90} height={90}
+              style={{ filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.2))" }} />
             <h1 style={{
-              fontSize: "clamp(48px, 8vw, 72px)", fontWeight: "900",
-              letterSpacing: "-3px", margin: 0, lineHeight: 1,
-              background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent"
+              fontSize: "clamp(56px, 10vw, 88px)", fontWeight: "900",
+              letterSpacing: "-4px", margin: 0, lineHeight: 0.9,
+              color: "white",
+              textShadow: "0 4px 24px rgba(0,0,0,0.2)"
             }}>doomi</h1>
           </div>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <p style={{ fontSize: "20px", color: "#475569", lineHeight: "1.6", margin: "0 0 32px 0" }}>
+          <p style={{
+            fontSize: "20px", color: "rgba(255,255,255,0.85)",
+            lineHeight: "1.7", margin: "0 0 40px 0", fontWeight: "500"
+          }}>
             Upload your screen time screenshot.<br />
-            Get roasted by AI. Feel seen. Do better.
+            Get roasted by AI. Feel seen. Scroll less.
           </p>
         </FadeIn>
         <FadeIn delay={0.3}>
           <a href="#analyzer" style={{
             display: "inline-block",
-            background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
-            color: "#0f172a", fontWeight: "800", fontSize: "18px",
-            padding: "18px 40px", borderRadius: "100px", textDecoration: "none",
-            boxShadow: "0 8px 32px rgba(20,184,166,0.3)"
+            background: "white",
+            color: "#0f172a", fontWeight: "900", fontSize: "18px",
+            padding: "20px 48px", borderRadius: "100px", textDecoration: "none",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.2)",
+            letterSpacing: "-0.5px"
           }}>
-            Roast my screen time 🔥
+            Roast my screen time
           </a>
         </FadeIn>
       </section>
 
       {/* HOW IT WORKS */}
-      <section style={{ padding: "60px 24px", background: "white" }}>
-        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
+      <section style={{ padding: "80px 24px" }}>
+        <div style={{ maxWidth: "720px", margin: "0 auto" }}>
           <FadeIn>
-            <h2 style={{ textAlign: "center", fontSize: "32px", fontWeight: "900", letterSpacing: "-1px", color: "#0f172a", marginBottom: "48px" }}>
+            <h2 style={{
+              textAlign: "center", fontSize: "36px", fontWeight: "900",
+              letterSpacing: "-1.5px", color: "white", marginBottom: "56px",
+              textShadow: "0 2px 12px rgba(0,0,0,0.15)"
+            }}>
               How it works
             </h2>
           </FadeIn>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "32px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "24px" }}>
             {[
-              { emoji: "📱", title: "Upload", desc: "Take a screenshot of your screen time report and upload it" },
-              { emoji: "🤖", title: "AI analyzes", desc: "Our AI reads your usage and compares it to global averages" },
-              { emoji: "💀", title: "Get roasted", desc: "Receive a brutally honest verdict and tips to do better" },
+              { icon: "📱", title: "Upload", desc: "Take a screenshot of your screen time and upload it here" },
+              { icon: "🧠", title: "AI analyzes", desc: "Claude reads your data and compares it to global averages" },
+              { icon: "📊", title: "Get your verdict", desc: "See your doomscroll level and what to do about it" },
             ].map((step, i) => (
               <FadeIn key={i} delay={i * 0.15}>
-                <div style={{ textAlign: "center" }}>
+                <div style={{
+                  background: "rgba(255,255,255,0.15)",
+                  backdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255,255,255,0.3)",
+                  borderRadius: "24px", padding: "32px 24px", textAlign: "center"
+                }}>
                   <div style={{
-                    width: "64px", height: "64px", borderRadius: "20px",
-                    background: "linear-gradient(135deg, #f0fdf4, #dcfce7)",
+                    width: "60px", height: "60px", borderRadius: "18px",
+                    background: "rgba(255,255,255,0.25)",
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "28px", margin: "0 auto 16px"
-                  }}>{step.emoji}</div>
-                  <h3 style={{ fontWeight: "800", fontSize: "18px", color: "#0f172a", margin: "0 0 8px 0" }}>{step.title}</h3>
-                  <p style={{ color: "#64748b", fontSize: "14px", lineHeight: "1.6", margin: 0 }}>{step.desc}</p>
+                    fontSize: "28px", margin: "0 auto 20px"
+                  }}>{step.icon}</div>
+                  <h3 style={{ fontWeight: "800", fontSize: "18px", color: "white", margin: "0 0 10px 0" }}>{step.title}</h3>
+                  <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "14px", lineHeight: "1.6", margin: 0 }}>{step.desc}</p>
                 </div>
               </FadeIn>
             ))}
@@ -167,156 +209,216 @@ export default function Home() {
       </section>
 
       {/* ANALYZER */}
-      <section id="analyzer" style={{ padding: "80px 24px" }}>
-        <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+      <section id="analyzer" style={{ padding: "80px 24px 120px" }}>
+        <div style={{ maxWidth: "500px", margin: "0 auto" }}>
 
-        {!result && !loading && (
-  <>
-    <FadeIn>
-      <h2 style={{ textAlign: "center", fontSize: "28px", fontWeight: "900", letterSpacing: "-1px", color: "#0f172a", marginBottom: "8px" }}>
-                  Try it now
-                </h2>
-                <p style={{ textAlign: "center", color: "#64748b", marginBottom: "32px" }}>
+          {!result && (
+            <>
+              <FadeIn>
+                <h2 style={{
+                  textAlign: "center", fontSize: "32px", fontWeight: "900",
+                  letterSpacing: "-1px", color: "white", marginBottom: "8px"
+                }}>Try it now</h2>
+                <p style={{ textAlign: "center", color: "rgba(255,255,255,0.7)", marginBottom: "32px", fontWeight: "500" }}>
                   Upload your screen time screenshot below
                 </p>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <label style={{
-                  display: "block", border: "2px dashed #cbd5e1", borderRadius: "24px",
-                  padding: "48px 32px", cursor: "pointer", background: "white",
+                  display: "block",
+                  border: "2px dashed rgba(255,255,255,0.4)",
+                  borderRadius: "28px", padding: "52px 32px", cursor: "pointer",
+                  background: "rgba(255,255,255,0.12)",
+                  backdropFilter: "blur(20px)",
                   textAlign: "center", transition: "all 0.2s"
                 }}>
-                  <input type="file" accept="image/*" style={{ display: "none" }} onChange={(e) => handleFile(e.target.files[0])} />
+                  <input type="file" accept="image/*" style={{ display: "none" }}
+                    onChange={(e) => handleFile(e.target.files[0])} />
                   {image ? (
                     <>
-                      <img src={image} alt="preview" style={{ maxHeight: "200px", borderRadius: "12px", marginBottom: "16px", objectFit: "contain" }} />
-                      <p style={{ color: "#14B8A6", fontSize: "14px", fontWeight: "600", margin: 0 }}>Looking good — now roast me</p>
+                      <img src={image} alt="preview" style={{ maxHeight: "200px", borderRadius: "16px", marginBottom: "16px", objectFit: "contain" }} />
+                      <p style={{ color: "white", fontSize: "14px", fontWeight: "600", margin: 0 }}>Looking good — now get roasted</p>
                     </>
                   ) : (
                     <>
-                      <p style={{ fontSize: "48px", margin: "0 0 16px 0" }}>📱</p>
-                      <p style={{ color: "#0f172a", fontWeight: "700", fontSize: "16px", margin: "0 0 6px 0" }}>Drop your screen time screenshot</p>
-                      <p style={{ color: "#94a3b8", fontSize: "14px", margin: 0 }}>or click to upload · iPhone & Android supported</p>
+                      <div style={{
+                        width: "64px", height: "64px", borderRadius: "20px",
+                        background: "rgba(255,255,255,0.2)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        fontSize: "32px", margin: "0 auto 20px"
+                      }}>📱</div>
+                      <p style={{ color: "white", fontWeight: "700", fontSize: "16px", margin: "0 0 8px 0" }}>Drop your screen time screenshot</p>
+                      <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px", margin: 0 }}>iPhone and Android supported</p>
                     </>
                   )}
                 </label>
               </FadeIn>
 
-              {image && (
+              {image && !loading && (
                 <FadeIn delay={0.1}>
-                  <button onClick={analyze} disabled={loading} style={{
+                  <button onClick={analyze} style={{
                     marginTop: "16px", width: "100%",
-                    background: loading ? "#e2e8f0" : "linear-gradient(90deg, #14B8A6, #6EE7B7)",
-                    color: loading ? "#94a3b8" : "#0f172a",
-                    fontWeight: "800", fontSize: "17px", padding: "18px",
-                    borderRadius: "100px", border: "none", cursor: loading ? "not-allowed" : "pointer",
-                    boxShadow: loading ? "none" : "0 8px 24px rgba(20,184,166,0.3)"
+                    background: "white",
+                    color: "#0f172a",
+                    fontWeight: "900", fontSize: "17px", padding: "20px",
+                    borderRadius: "100px", border: "none", cursor: "pointer",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+                    letterSpacing: "-0.3px"
                   }}>
-                    {loading ? "Reading your sins... 👀" : "Roast me 🔥"}
+                    Roast me
                   </button>
                 </FadeIn>
+              )}
+
+              {loading && (
+                <div style={{ textAlign: "center", marginTop: "24px", color: "white", fontWeight: "700", fontSize: "16px" }}>
+                  Reading your sins...
+                </div>
               )}
             </>
           )}
 
           {result && (
-            <>
+            <FadeIn>
               <div style={{
-                background: "white", borderRadius: "28px", overflow: "hidden",
-                boxShadow: "0 20px 60px rgba(0,0,0,0.1)"
+                borderRadius: "28px", overflow: "hidden",
+                border: "2px solid rgba(255,255,255,0.3)",
+                boxShadow: "0 32px 80px rgba(0,0,0,0.3)"
               }}>
-                <div style={{ background: verdict.bg, padding: "28px", textAlign: "center", borderBottom: "1px solid #f1f5f9" }}>
-                  <Image src="/pet.svg" alt="Doomi" width={50} height={50} style={{ marginBottom: "12px" }} />
-                  <p style={{ fontSize: "30px", fontWeight: "900", color: verdict.color, margin: 0, letterSpacing: "-1px" }}>
-                    {verdict.emoji} {result.verdict}
+                {/* VERDICT HEADER */}
+                <div style={{
+                  background: verdictData.headerGradient,
+                  padding: "36px 28px", textAlign: "center"
+                }}>
+                  <Image src="/pet.svg" alt="Doomi" width={56} height={56} style={{ marginBottom: "16px" }} />
+                  <p style={{
+                    fontSize: "11px", fontWeight: "800", letterSpacing: "3px",
+                    textTransform: "uppercase", color: "rgba(255,255,255,0.8)",
+                    margin: "0 0 8px 0"
+                  }}>Your result</p>
+                  <p style={{
+                    fontSize: "26px", fontWeight: "900", color: "white",
+                    margin: "0 0 4px 0", letterSpacing: "-0.5px",
+                    textShadow: "0 2px 8px rgba(0,0,0,0.2)"
+                  }}>{verdictData.label}</p>
+                  <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "14px", margin: 0, fontWeight: "600" }}>
+                    {verdictData.sublabel}
                   </p>
                 </div>
 
-                <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "14px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "14px", borderBottom: "1px solid #f1f5f9" }}>
-                    <span style={{ color: "#94a3b8", fontSize: "14px" }}>Total screen time</span>
-                    <span style={{ color: "#0f172a", fontWeight: "700" }}>{result.totalTime}</span>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "14px", borderBottom: "1px solid #f1f5f9" }}>
-                    <span style={{ color: "#94a3b8", fontSize: "14px" }}>Worst offender</span>
-                    <span style={{ color: "#0f172a", fontWeight: "700" }}>{result.worstApp} · {result.worstAppTime}</span>
-                  </div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "14px", borderBottom: "1px solid #f1f5f9" }}>
-                    <span style={{ color: "#94a3b8", fontSize: "14px" }}>vs. global average</span>
-                    <span style={{ color: "#ef4444", fontWeight: "700" }}>avg 4h · {result.vsAverage}</span>
+                {/* STATS */}
+                <div style={{
+                  background: "linear-gradient(180deg, #1e1b4b 0%, #172554 100%)",
+                  padding: "24px 28px",
+                  display: "flex", flexDirection: "column", gap: "14px"
+                }}>
+                  {[
+                    { label: "Total screen time", value: result.totalTime },
+                    { label: "Worst offender", value: `${result.worstApp} · ${result.worstAppTime}` },
+                    { label: "vs. global average", value: `avg 4h · ${result.vsAverage}`, highlight: true },
+                  ].map((row, i) => (
+                    <div key={i} style={{
+                      display: "flex", justifyContent: "space-between", alignItems: "center",
+                      paddingBottom: i < 2 ? "14px" : 0,
+                      borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.08)" : "none"
+                    }}>
+                      <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>{row.label}</span>
+                      <span style={{ color: row.highlight ? "#f87171" : "white", fontWeight: "700", fontSize: "14px" }}>{row.value}</span>
+                    </div>
+                  ))}
+
+                  <div style={{
+                    background: "rgba(255,255,255,0.06)",
+                    borderRadius: "16px", padding: "18px",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    marginTop: "4px"
+                  }}>
+                    <p style={{ color: "#6EE7B7", fontSize: "10px", fontWeight: "800", letterSpacing: "2.5px", textTransform: "uppercase", margin: "0 0 10px 0" }}>Doomi says</p>
+                    <p style={{ color: "rgba(255,255,255,0.9)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.roast}</p>
                   </div>
 
-                  <div style={{ background: "#f8fafc", borderRadius: "16px", padding: "16px" }}>
-                    <p style={{ color: "#14B8A6", fontSize: "11px", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", margin: "0 0 8px 0" }}>Doomi says</p>
-                    <p style={{ color: "#0f172a", lineHeight: "1.6", margin: 0 }}>{result.roast}</p>
+                  <div style={{
+                    background: "rgba(255,255,255,0.06)",
+                    borderRadius: "16px", padding: "18px",
+                    border: "1px solid rgba(255,255,255,0.08)"
+                  }}>
+                    <p style={{ color: "#FACC15", fontSize: "10px", fontWeight: "800", letterSpacing: "2.5px", textTransform: "uppercase", margin: "0 0 10px 0" }}>One thing to try</p>
+                    <p style={{ color: "rgba(255,255,255,0.9)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.advice}</p>
                   </div>
 
-                  <div style={{ background: "#f8fafc", borderRadius: "16px", padding: "16px" }}>
-                    <p style={{ color: "#FACC15", fontSize: "11px", fontWeight: "700", letterSpacing: "2px", textTransform: "uppercase", margin: "0 0 8px 0" }}>One thing to try</p>
-                    <p style={{ color: "#0f172a", lineHeight: "1.6", margin: 0 }}>{result.advice}</p>
-                  </div>
-                </div>
-
-                <div style={{ padding: "0 24px 24px" }}>
-                  <div style={{ background: "#f0fdf4", borderRadius: "16px", padding: "20px", textAlign: "center" }}>
-                    <p style={{ color: "#0f172a", fontWeight: "700", fontSize: "15px", margin: "0 0 4px 0" }}>Want to stop dooming for real? 👾</p>
-                    <p style={{ color: "#64748b", fontSize: "13px", margin: "0 0 16px 0" }}>Get early access to the full app.</p>
+                  {/* EMAIL CAPTURE */}
+                  <div style={{
+                    background: "rgba(255,255,255,0.06)",
+                    borderRadius: "16px", padding: "20px",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    textAlign: "center"
+                  }}>
+                    <p style={{ color: "white", fontWeight: "800", fontSize: "15px", margin: "0 0 4px 0" }}>Want to stop dooming for real?</p>
+                    <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", margin: "0 0 16px 0" }}>Get early access to the full app.</p>
                     {emailSent ? (
-  <button style={{
-    width: "100%",
-    background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
-    color: "#0f172a", fontWeight: "800", fontSize: "16px",
-    padding: "16px", borderRadius: "100px", border: "none", cursor: "default"
-  }}>
-    ✓ You're on the list!
-  </button>
-) : (
-  <div style={{ display: "flex", gap: "8px" }}>
-    <input
-      type="email" placeholder="your@email.com" value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      style={{
-        flex: 1, background: "white", border: "1px solid #e2e8f0",
-        borderRadius: "100px", padding: "12px 16px", color: "#0f172a",
-        fontSize: "14px", outline: "none"
-      }}
-    />
-    <button onClick={submitEmail} style={{
-      background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
-      color: "#0f172a", fontWeight: "800", fontSize: "14px",
-      padding: "12px 20px", borderRadius: "100px", border: "none", cursor: "pointer"
-    }}>
-      Notify me
-    </button>
-  </div>
-)}
+                      <div style={{
+                        background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
+                        color: "#0f172a", fontWeight: "800", fontSize: "15px",
+                        padding: "16px", borderRadius: "100px", textAlign: "center"
+                      }}>
+                        You're on the list!
+                      </div>
+                    ) : (
+                      <div style={{ display: "flex", gap: "8px" }}>
+                        <input
+                          type="email" placeholder="your@email.com" value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          style={{
+                            flex: 1, background: "rgba(255,255,255,0.1)",
+                            border: "1px solid rgba(255,255,255,0.2)",
+                            borderRadius: "100px", padding: "12px 16px",
+                            color: "white", fontSize: "14px", outline: "none"
+                          }}
+                        />
+                        <button onClick={submitEmail} style={{
+                          background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
+                          color: "#0f172a", fontWeight: "800", fontSize: "14px",
+                          padding: "12px 20px", borderRadius: "100px",
+                          border: "none", cursor: "pointer", whiteSpace: "nowrap"
+                        }}>
+                          Notify me
+                        </button>
+                      </div>
+                    )}
                   </div>
+
+                  <p style={{ textAlign: "center", fontSize: "11px", color: "rgba(255,255,255,0.3)", margin: "4px 0 0 0" }}>
+                    Global average based on{" "}
+                    <a href="https://datareportal.com/reports/digital-2024-global-overview-report"
+                      target="_blank" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      DataReportal 2024
+                    </a>
+                  </p>
                 </div>
               </div>
 
-              <p style={{ textAlign: "center", fontSize: "11px", color: "#94a3b8", marginTop: "12px" }}>
-                Global average based on{" "}
-                <a href="https://datareportal.com/reports/digital-2024-global-overview-report" target="_blank" style={{ color: "#64748b" }}>
-                  DataReportal 2024
-                </a>
-              </p>
-
               <button onClick={() => { setResult(null); setImage(null); setImageFile(null) }}
-                style={{ marginTop: "8px", width: "100%", color: "#94a3b8", background: "none", border: "none", cursor: "pointer", fontSize: "14px" }}>
-                Try another screenshot →
+                style={{ marginTop: "16px", width: "100%", color: "rgba(255,255,255,0.5)", background: "none", border: "none", cursor: "pointer", fontSize: "14px", fontWeight: "600" }}>
+                Try another screenshot
               </button>
-            </>
+            </FadeIn>
           )}
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ textAlign: "center", padding: "32px", borderTop: "1px solid #e2e8f0", color: "#94a3b8", fontSize: "13px" }}>
+      <footer style={{
+        textAlign: "center", padding: "32px",
+        background: "rgba(0,0,0,0.2)",
+        backdropFilter: "blur(10px)",
+        borderTop: "1px solid rgba(255,255,255,0.1)",
+        color: "rgba(255,255,255,0.5)", fontSize: "13px"
+      }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "8px" }}>
           <Image src="/pet.svg" alt="Doomi" width={24} height={24} />
-          <span style={{ fontWeight: "700", color: "#0f172a" }}>doomi</span>
+          <span style={{ fontWeight: "900", color: "white", letterSpacing: "-0.5px" }}>doomi</span>
         </div>
-        Made with 💀 to help you scroll less
+        Helping you scroll less, one roast at a time.
       </footer>
     </main>
   )
