@@ -108,7 +108,7 @@ export default function Home() {
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Image src="/pet.svg" alt="Doomi" width={36} height={36} />
-          <span style={{ fontWeight: "900", fontSize: "22px", color: "white", letterSpacing: "-1px" }}>doomi</span>
+          <span style={{ fontWeight: "800", fontSize: "22px", color: "white", letterSpacing: "-1px" }}>doomi</span>
         </div>
         <a href="#analyzer" style={{
           background: "white",
@@ -138,7 +138,7 @@ export default function Home() {
             <Image src="/pet.svg" alt="Doomi pet" width={90} height={90}
               style={{ filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.2))" }} />
             <h1 style={{
-              fontSize: "clamp(56px, 10vw, 88px)", fontWeight: "900",
+              fontSize: "clamp(56px, 10vw, 88px)", fontWeight: "800",
               letterSpacing: "-4px", margin: 0, lineHeight: 0.9,
               color: "white",
               textShadow: "0 4px 24px rgba(0,0,0,0.2)"
@@ -158,7 +158,7 @@ export default function Home() {
           <a href="#analyzer" style={{
             display: "inline-block",
             background: "white",
-            color: "#0f172a", fontWeight: "900", fontSize: "18px",
+            color: "#0f172a", fontWeight: "800", fontSize: "18px",
             padding: "20px 48px", borderRadius: "100px", textDecoration: "none",
             boxShadow: "0 12px 40px rgba(0,0,0,0.2)",
             letterSpacing: "-0.5px"
@@ -173,7 +173,7 @@ export default function Home() {
         <div style={{ maxWidth: "720px", margin: "0 auto" }}>
           <FadeIn>
             <h2 style={{
-              textAlign: "center", fontSize: "36px", fontWeight: "900",
+              textAlign: "center", fontSize: "36px", fontWeight: "800",
               letterSpacing: "-1.5px", color: "white", marginBottom: "56px",
               textShadow: "0 2px 12px rgba(0,0,0,0.15)"
             }}>
@@ -216,7 +216,7 @@ export default function Home() {
             <>
               <FadeIn>
                 <h2 style={{
-                  textAlign: "center", fontSize: "32px", fontWeight: "900",
+                  textAlign: "center", fontSize: "32px", fontWeight: "800",
                   letterSpacing: "-1px", color: "white", marginBottom: "8px"
                 }}>Try it now</h2>
                 <p style={{ textAlign: "center", color: "rgba(255,255,255,0.7)", marginBottom: "32px", fontWeight: "500" }}>
@@ -260,7 +260,7 @@ export default function Home() {
                     marginTop: "16px", width: "100%",
                     background: "white",
                     color: "#0f172a",
-                    fontWeight: "900", fontSize: "17px", padding: "20px",
+                    fontWeight: "800", fontSize: "17px", padding: "20px",
                     borderRadius: "100px", border: "none", cursor: "pointer",
                     boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
                     letterSpacing: "-0.3px"
@@ -297,7 +297,7 @@ export default function Home() {
                     margin: "0 0 8px 0"
                   }}>Your result</p>
                   <p style={{
-                    fontSize: "26px", fontWeight: "900", color: "white",
+                    fontSize: "26px", fontWeight: "800", color: "white",
                     margin: "0 0 4px 0", letterSpacing: "-0.5px",
                     textShadow: "0 2px 8px rgba(0,0,0,0.2)"
                   }}>{verdictData.label}</p>
@@ -416,7 +416,7 @@ export default function Home() {
       }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", marginBottom: "8px" }}>
           <Image src="/pet.svg" alt="Doomi" width={24} height={24} />
-          <span style={{ fontWeight: "900", color: "white", letterSpacing: "-0.5px" }}>doomi</span>
+          <span style={{ fontWeight: "800", color: "white", letterSpacing: "-0.5px" }}>doomi</span>
         </div>
         Helping you scroll less, one roast at a time.
       </footer>
