@@ -5,7 +5,7 @@ import Image from "next/image"
 function FadeIn({ children, delay = 0 }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true) },
@@ -53,6 +53,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [emailSent, setEmailSent] = useState(false)
+const [menuOpen, setMenuOpen] = useState(false)
 
   function handleFile(file) {
     if (!file) return
