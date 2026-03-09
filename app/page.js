@@ -163,7 +163,7 @@ export default function Home() {
             boxShadow: "0 12px 40px rgba(0,0,0,0.2)",
             letterSpacing: "-0.5px"
           }}>
-            Roast my screen time
+            Analyse my screen time
           </a>
         </FadeIn>
       </section>
@@ -265,7 +265,7 @@ export default function Home() {
                     boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
                     letterSpacing: "-0.3px"
                   }}>
-                    Roast me
+                    Analyse
                   </button>
                 </FadeIn>
               )}
