@@ -5,7 +5,6 @@ import Image from "next/image"
 function FadeIn({ children, delay = 0 }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true) },
@@ -53,7 +52,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [emailSent, setEmailSent] = useState(false)
-const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   function handleFile(file) {
     if (!file) return
@@ -96,67 +95,74 @@ const [menuOpen, setMenuOpen] = useState(false)
       background: "linear-gradient(160deg, #06d6a0 0%, #7b2d8b 30%, #f4845f 65%, #facc15 100%)",
     }}>
 
-      <nav style={{
-  display: "flex", alignItems: "center", justifyContent: "space-between",
-  padding: "16px 32px",
-  background: "rgba(255,255,255,0.15)",
-  backdropFilter: "blur(20px)",
-  borderBottom: "1px solid rgba(255,255,255,0.2)",
-  position: "sticky", top: 0, zIndex: 100
-}}>
-  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-    <Image src="/pet.svg" alt="Doomi" width={36} height={36} />
-    <span style={{ fontWeight: "800", fontSize: "22px", color: "white", letterSpacing: "-1px" }}>doomi</span>
-  </div>
-  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-    <a href="#analyzer" style={{
-      background: "white",
-      color: "#0f172a", fontWeight: "800", fontSize: "14px",
-      padding: "10px 22px", borderRadius: "100px", textDecoration: "none",
-      boxShadow: "0 4px 16px rgba(0,0,0,0.15)"
-    }}>Try it free</a>
-    <button
-      onClick={() => setMenuOpen(!menuOpen)}
-      style={{
-        background: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.3)",
-        borderRadius: "12px", padding: "10px", cursor: "pointer",
-        display: "flex", flexDirection: "column", gap: "5px", alignItems: "center"
-      }}>
-      <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
-      <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
-      <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
-    </button>
-  </div>
+      {/* FULLSCREEN MENU OVERLAY */}
+      {menuOpen && (
+        <div
+          onClick={() => setMenuOpen(false)}
+          style={{
+            position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+            background: "rgba(0,0,0,0.85)",
+            backdropFilter: "blur(12px)",
+            zIndex: 200,
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center", gap: "20px"
+          }}>
+          {[
+            { label: "Home", href: "/" },
+            { label: "Research & Studies", href: "/research" },
+            { label: "About Doomi", href: "/about" },
+            { label: "How to find screen time", href: "/how-to" },
+            { label: "Contact", href: "/contact" },
+          ].map((item) => (
+            <a key={item.href} href={item.href} style={{
+              color: "white", fontSize: "32px", fontWeight: "800",
+              textDecoration: "none", letterSpacing: "-1px",
+            }}>{item.label}</a>
+          ))}
+          <button
+            onClick={() => setMenuOpen(false)}
+            style={{
+              marginTop: "24px", background: "rgba(255,255,255,0.15)",
+              border: "1px solid rgba(255,255,255,0.3)", color: "white",
+              borderRadius: "100px", padding: "12px 32px", cursor: "pointer",
+              fontSize: "16px", fontWeight: "700"
+            }}>Close</button>
+        </div>
+      )}
 
-  {menuOpen && (
-    <div style={{
-      position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-      background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)",
-      zIndex: 200, display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "center", gap: "16px"
-    }} onClick={() => setMenuOpen(false)}>
-      {[
-        { label: "Home", href: "/" },
-        { label: "Research & Studies", href: "/research" },
-        { label: "About Doomi", href: "/about" },
-        { label: "How to find screen time", href: "/how-to" },
-        { label: "Contact", href: "/contact" },
-      ].map((item) => (
-        <a key={item.href} href={item.href} style={{
-          color: "white", fontSize: "28px", fontWeight: "800",
-          textDecoration: "none", letterSpacing: "-1px",
-          transition: "opacity 0.2s"
-        }}>{item.label}</a>
-      ))}
-      <button onClick={() => setMenuOpen(false)} style={{
-        marginTop: "24px", background: "rgba(255,255,255,0.2)",
-        border: "1px solid rgba(255,255,255,0.3)", color: "white",
-        borderRadius: "100px", padding: "12px 32px", cursor: "pointer",
-        fontSize: "16px", fontWeight: "700"
-      }}>Close</button>
-    </div>
-  )}
-</nav>
+      {/* NAV */}
+      <nav style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "16px 32px",
+        background: "rgba(255,255,255,0.15)",
+        backdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255,255,255,0.2)",
+        position: "sticky", top: 0, zIndex: 100
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Image src="/pet.svg" alt="Doomi" width={36} height={36} />
+          <span style={{ fontWeight: "800", fontSize: "22px", color: "white", letterSpacing: "-1px" }}>doomi</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <a href="#analyzer" style={{
+            background: "white",
+            color: "#0f172a", fontWeight: "800", fontSize: "14px",
+            padding: "10px 22px", borderRadius: "100px", textDecoration: "none",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.15)"
+          }}>Try it free</a>
+          <button
+            onClick={() => setMenuOpen(true)}
+            style={{
+              background: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.3)",
+              borderRadius: "12px", padding: "10px 12px", cursor: "pointer",
+              display: "flex", flexDirection: "column", gap: "5px", alignItems: "center"
+            }}>
+            <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
+            <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
+            <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
+          </button>
+        </div>
+      </nav>
 
       {/* HERO */}
       <section style={{ textAlign: "center", padding: "100px 24px 80px", maxWidth: "720px", margin: "0 auto" }}>
@@ -251,7 +257,6 @@ const [menuOpen, setMenuOpen] = useState(false)
       {/* ANALYZER */}
       <section id="analyzer" style={{ padding: "80px 24px 120px" }}>
         <div style={{ maxWidth: "500px", margin: "0 auto" }}>
-
           {!result && (
             <>
               <FadeIn>
@@ -298,8 +303,7 @@ const [menuOpen, setMenuOpen] = useState(false)
                 <FadeIn delay={0.1}>
                   <button onClick={analyze} style={{
                     marginTop: "16px", width: "100%",
-                    background: "white",
-                    color: "#0f172a",
+                    background: "white", color: "#0f172a",
                     fontWeight: "800", fontSize: "17px", padding: "20px",
                     borderRadius: "100px", border: "none", cursor: "pointer",
                     boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
@@ -325,7 +329,6 @@ const [menuOpen, setMenuOpen] = useState(false)
                 border: "3px solid #1e3a5f",
                 boxShadow: "0 32px 80px rgba(0,0,0,0.3)"
               }}>
-                {/* VERDICT HEADER */}
                 <div style={{
                   background: verdictData.headerGradient,
                   padding: "36px 28px", textAlign: "center"
@@ -346,7 +349,6 @@ const [menuOpen, setMenuOpen] = useState(false)
                   </p>
                 </div>
 
-                {/* CARD BODY */}
                 <div style={{
                   background: "linear-gradient(180deg, #f97316 0%, #374151 25%, #1f2937 60%, #111827 100%)",
                   padding: "24px 28px",
@@ -370,8 +372,7 @@ const [menuOpen, setMenuOpen] = useState(false)
                   <div style={{
                     background: "rgba(255,255,255,0.06)",
                     borderRadius: "16px", padding: "18px",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    marginTop: "4px"
+                    border: "1px solid rgba(255,255,255,0.08)", marginTop: "4px"
                   }}>
                     <p style={{ color: "#6EE7B7", fontSize: "10px", fontWeight: "800", letterSpacing: "2.5px", textTransform: "uppercase", margin: "0 0 10px 0" }}>Doomi says</p>
                     <p style={{ color: "rgba(255,255,255,0.85)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.roast}</p>
@@ -386,7 +387,6 @@ const [menuOpen, setMenuOpen] = useState(false)
                     <p style={{ color: "rgba(255,255,255,0.85)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.advice}</p>
                   </div>
 
-                  {/* EMAIL CAPTURE */}
                   <div style={{
                     background: "rgba(255,255,255,0.9)",
                     borderRadius: "16px", padding: "20px",
