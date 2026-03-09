@@ -29,21 +29,18 @@ const VERDICTS = {
     label: "Doomscroll Level: Extreme",
     sublabel: "You're deep in it.",
     headerGradient: "linear-gradient(135deg, #dc2626 0%, #ea580c 50%, #facc15 100%)",
-    textColor: "white",
     badgeColor: "#dc2626"
   },
   "GETTING THERE": {
     label: "Doomscroll Level: Moderate",
     sublabel: "Room to improve.",
     headerGradient: "linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #facc15 100%)",
-    textColor: "white",
     badgeColor: "#d97706"
   },
   "ACTUALLY OKAY": {
     label: "Doomscroll Level: Low",
     sublabel: "Not bad at all.",
     headerGradient: "linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #67e8f9 100%)",
-    textColor: "white",
     badgeColor: "#0891b2"
   },
 }
@@ -151,7 +148,7 @@ export default function Home() {
             lineHeight: "1.7", margin: "0 0 40px 0", fontWeight: "500"
           }}>
             Upload your screen time screenshot.<br />
-            Get roasted by AI. Feel seen. Scroll less.
+            Get analysed by AI. Feel seen. Scroll less.
           </p>
         </FadeIn>
         <FadeIn delay={0.3}>
@@ -183,7 +180,7 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "24px" }}>
             {[
               { icon: "📱", title: "Upload", desc: "Take a screenshot of your screen time and upload it here" },
-              { icon: "🧠", title: "AI analyzes", desc: "Claude reads your data and compares it to global averages" },
+              { icon: "🧠", title: "AI analyses", desc: "Claude reads your data and compares it to global averages" },
               { icon: "📊", title: "Get your verdict", desc: "See your doomscroll level and what to do about it" },
             ].map((step, i) => (
               <FadeIn key={i} delay={i * 0.15}>
@@ -237,7 +234,7 @@ export default function Home() {
                   {image ? (
                     <>
                       <img src={image} alt="preview" style={{ maxHeight: "200px", borderRadius: "16px", marginBottom: "16px", objectFit: "contain" }} />
-                      <p style={{ color: "white", fontSize: "14px", fontWeight: "600", margin: 0 }}>Looking good — now get roasted</p>
+                      <p style={{ color: "white", fontSize: "14px", fontWeight: "600", margin: 0 }}>Looking good — now get analysed</p>
                     </>
                   ) : (
                     <>
@@ -272,7 +269,7 @@ export default function Home() {
 
               {loading && (
                 <div style={{ textAlign: "center", marginTop: "24px", color: "white", fontWeight: "700", fontSize: "16px" }}>
-                  Reading your sins...
+                  Analysing...
                 </div>
               )}
             </>
@@ -306,9 +303,9 @@ export default function Home() {
                   </p>
                 </div>
 
-                {/* STATS */}
+                {/* CARD BODY */}
                 <div style={{
-                  background: "linear-gradient(180deg, #f0fdf4 0%, #e0f2fe 50%, #faf5ff 100%)",
+                  background: "linear-gradient(180deg, #f97316 0%, #374151 25%, #1f2937 60%, #111827 100%)",
                   padding: "24px 28px",
                   display: "flex", flexDirection: "column", gap: "14px"
                 }}>
@@ -320,41 +317,41 @@ export default function Home() {
                     <div key={i} style={{
                       display: "flex", justifyContent: "space-between", alignItems: "center",
                       paddingBottom: i < 2 ? "14px" : 0,
-                      borderBottom: i < 2 ? "1px solid rgba(0,0,0,0.06)" : "none"
+                      borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.08)" : "none"
                     }}>
-                      <span style={{ color: "#64748b", fontSize: "14px" }}>{row.label}</span>
-<span style={{ color: row.highlight ? "#ef4444" : "#0f172a", fontWeight: "700", fontSize: "14px" }}>{row.value}</span>
+                      <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px" }}>{row.label}</span>
+                      <span style={{ color: row.highlight ? "#f87171" : "white", fontWeight: "700", fontSize: "14px" }}>{row.value}</span>
                     </div>
                   ))}
 
                   <div style={{
-                    background: "rgba(255,255,255,0.7)",
+                    background: "rgba(255,255,255,0.06)",
                     borderRadius: "16px", padding: "18px",
-                    border: "1px solid rgba(0,0,0,0.06)",
+                    border: "1px solid rgba(255,255,255,0.08)",
                     marginTop: "4px"
                   }}>
                     <p style={{ color: "#6EE7B7", fontSize: "10px", fontWeight: "800", letterSpacing: "2.5px", textTransform: "uppercase", margin: "0 0 10px 0" }}>Doomi says</p>
-                    <p style={{ color: "#0f172a", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.roast}</p>
+                    <p style={{ color: "rgba(255,255,255,0.85)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.roast}</p>
                   </div>
 
                   <div style={{
-                    background: "rgba(255,255,255,0.7)",
+                    background: "rgba(255,255,255,0.06)",
                     borderRadius: "16px", padding: "18px",
-                    border: "1px solid rgba(0,0,0,0.06)"
+                    border: "1px solid rgba(255,255,255,0.08)"
                   }}>
                     <p style={{ color: "#FACC15", fontSize: "10px", fontWeight: "800", letterSpacing: "2.5px", textTransform: "uppercase", margin: "0 0 10px 0" }}>One thing to try</p>
-                    <p style={{ color: "#0f172a", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.advice}</p>
+                    <p style={{ color: "rgba(255,255,255,0.85)", lineHeight: "1.7", margin: 0, fontSize: "14px" }}>{result.advice}</p>
                   </div>
 
                   {/* EMAIL CAPTURE */}
                   <div style={{
-                    background: "rgba(255,255,255,0.7)",
+                    background: "rgba(255,255,255,0.9)",
                     borderRadius: "16px", padding: "20px",
-                    border: "1px solid rgba(0,0,0,0.06)",
+                    border: "1px solid rgba(255,255,255,0.15)",
                     textAlign: "center"
                   }}>
-                    <p style={{ color: "white", fontWeight: "800", fontSize: "15px", margin: "0 0 4px 0" }}>Want to stop dooming for real?</p>
-                    <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", margin: "0 0 16px 0" }}>Get early access to the full app.</p>
+                    <p style={{ color: "#0f172a", fontWeight: "800", fontSize: "15px", margin: "0 0 4px 0" }}>Want to stop dooming for real?</p>
+                    <p style={{ color: "#475569", fontSize: "13px", margin: "0 0 16px 0" }}>Get early access to the full app.</p>
                     {emailSent ? (
                       <div style={{
                         background: "linear-gradient(90deg, #14B8A6, #6EE7B7)",
@@ -369,10 +366,10 @@ export default function Home() {
                           type="email" placeholder="your@email.com" value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           style={{
-                            flex: 1, background: "rgba(255,255,255,0.7)",
-                            border: "1px solid rgba(0,0,0,0.06)",
+                            flex: 1, background: "white",
+                            border: "1px solid #e2e8f0",
                             borderRadius: "100px", padding: "12px 16px",
-                            color: "white", fontSize: "14px", outline: "none"
+                            color: "#0f172a", fontSize: "14px", outline: "none"
                           }}
                         />
                         <button onClick={submitEmail} style={{
@@ -418,7 +415,7 @@ export default function Home() {
           <Image src="/pet.svg" alt="Doomi" width={24} height={24} />
           <span style={{ fontWeight: "800", color: "white", letterSpacing: "-0.5px" }}>doomi</span>
         </div>
-        Helping you scroll less, one roast at a time.
+        Helping you scroll less, one analysis at a time.
       </footer>
     </main>
   )
