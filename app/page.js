@@ -5,6 +5,7 @@ import Image from "next/image"
 function FadeIn({ children, delay = 0 }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setVisible(true) },
@@ -94,26 +95,67 @@ export default function Home() {
       background: "linear-gradient(160deg, #06d6a0 0%, #7b2d8b 30%, #f4845f 65%, #facc15 100%)",
     }}>
 
-      {/* NAV */}
       <nav style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "16px 32px",
-        background: "rgba(255,255,255,0.15)",
-        backdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(255,255,255,0.2)",
-        position: "sticky", top: 0, zIndex: 100
+  display: "flex", alignItems: "center", justifyContent: "space-between",
+  padding: "16px 32px",
+  background: "rgba(255,255,255,0.15)",
+  backdropFilter: "blur(20px)",
+  borderBottom: "1px solid rgba(255,255,255,0.2)",
+  position: "sticky", top: 0, zIndex: 100
+}}>
+  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+    <Image src="/pet.svg" alt="Doomi" width={36} height={36} />
+    <span style={{ fontWeight: "800", fontSize: "22px", color: "white", letterSpacing: "-1px" }}>doomi</span>
+  </div>
+  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+    <a href="#analyzer" style={{
+      background: "white",
+      color: "#0f172a", fontWeight: "800", fontSize: "14px",
+      padding: "10px 22px", borderRadius: "100px", textDecoration: "none",
+      boxShadow: "0 4px 16px rgba(0,0,0,0.15)"
+    }}>Try it free</a>
+    <button
+      onClick={() => setMenuOpen(!menuOpen)}
+      style={{
+        background: "rgba(255,255,255,0.2)", border: "1px solid rgba(255,255,255,0.3)",
+        borderRadius: "12px", padding: "10px", cursor: "pointer",
+        display: "flex", flexDirection: "column", gap: "5px", alignItems: "center"
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <Image src="/pet.svg" alt="Doomi" width={36} height={36} />
-          <span style={{ fontWeight: "800", fontSize: "22px", color: "white", letterSpacing: "-1px" }}>doomi</span>
-        </div>
-        <a href="#analyzer" style={{
-          background: "white",
-          color: "#0f172a", fontWeight: "800", fontSize: "14px",
-          padding: "10px 22px", borderRadius: "100px", textDecoration: "none",
-          boxShadow: "0 4px 16px rgba(0,0,0,0.15)"
-        }}>Try it free</a>
-      </nav>
+      <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
+      <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
+      <span style={{ width: "20px", height: "2px", background: "white", display: "block" }}></span>
+    </button>
+  </div>
+
+  {menuOpen && (
+    <div style={{
+      position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+      background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)",
+      zIndex: 200, display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center", gap: "16px"
+    }} onClick={() => setMenuOpen(false)}>
+      {[
+        { label: "Home", href: "/" },
+        { label: "Research & Studies", href: "/research" },
+        { label: "About Doomi", href: "/about" },
+        { label: "How to find screen time", href: "/how-to" },
+        { label: "Contact", href: "/contact" },
+      ].map((item) => (
+        <a key={item.href} href={item.href} style={{
+          color: "white", fontSize: "28px", fontWeight: "800",
+          textDecoration: "none", letterSpacing: "-1px",
+          transition: "opacity 0.2s"
+        }}>{item.label}</a>
+      ))}
+      <button onClick={() => setMenuOpen(false)} style={{
+        marginTop: "24px", background: "rgba(255,255,255,0.2)",
+        border: "1px solid rgba(255,255,255,0.3)", color: "white",
+        borderRadius: "100px", padding: "12px 32px", cursor: "pointer",
+        fontSize: "16px", fontWeight: "700"
+      }}>Close</button>
+    </div>
+  )}
+</nav>
 
       {/* HERO */}
       <section style={{ textAlign: "center", padding: "100px 24px 80px", maxWidth: "720px", margin: "0 auto" }}>
