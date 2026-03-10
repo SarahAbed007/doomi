@@ -8,19 +8,28 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  async function handleSubmit() {
-    if (!email || !message) return
+ async function handleSubmit() {
+    console.log("email:", email)
+    console.log("message:", message)
+    if (!email || !message) {
+      console.log("fields empty, returning")
+      return
+    }
     setLoading(true)
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, message })
-    })
-    const data = await res.json()
-    if (data.success) setSent(true)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, message })
+      })
+      const data = await res.json()
+      console.log("response:", data)
+      if (data.success) setSent(true)
+    } catch (err) {
+      console.error("fetch error:", err)
+    }
     setLoading(false)
   }
-
   const glass = {
     background: "rgba(255,255,255,0.1)",
     backdropFilter: "blur(20px)",
@@ -113,7 +122,6 @@ export default function Contact() {
             </div>
             <button
               onClick={handleSubmit}
-              disabled={loading || !email || !message}
               style={{
                 width: "100%", background: "white",
                 color: "#0f172a", fontWeight: "800", fontSize: "16px",

@@ -7,24 +7,17 @@ export async function POST(request) {
   try {
     const { email, message } = await request.json()
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: "Doomi Contact <onboarding@resend.dev>",
-      to: "hello@stopdooming.com",
+      to: "fatema.abed@gmx.net",
       subject: "New message from Doomi contact form",
-      html: `
-        <div style="font-family: sans-serif; max-width: 500px;">
-          <h2>New Contact Form Message</h2>
-          <p><strong>From:</strong> ${email}</p>
-          <hr />
-          <p><strong>Message:</strong></p>
-          <p>${message}</p>
-        </div>
-      `
+      html: `<p>From: ${email}</p><p>${message}</p>`
     })
 
+    console.log("Resend result:", result)
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error(error)
+    console.error("Resend error:", error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
